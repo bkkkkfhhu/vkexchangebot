@@ -1,9 +1,11 @@
-BOT_TOKEN = "8632759844:AAEJ41qSZiqaFBNRxOhE6GmiQSSRtReIdQg"
-ADMIN_CHAT_ID = 7266148080  # paste your user ID here (no quotes)
+import os
+
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "8632759844:AAEJ41qSZiqaFBNRxOhE6GmiQSSRtReIdQg")
+ADMIN_CHAT_ID = int(os.environ.get("ADMIN_CHAT_ID", "7266148080"))
 
 WALLETS = {
-    "BTC":       "bc1qejlu84dufgwctshr7l3m4j0hswkqq876gj55te",
-    "ETH":       "0x38FE5Bc8ACe89FC0670ba357E90B74dBC1EC1A47",
+    "BTC":        "bc1qejlu84dufgwctshr7l3m4j0hswkqq876gj55te",
+    "ETH":        "0x38FE5Bc8ACe89FC0670ba357E90B74dBC1EC1A47",
     "USDT_BEP20": "0x38FE5Bc8ACe89FC0670ba357E90B74dBC1EC1A47",
     "USDT_TRC20": "TFAZYwbKrs8wUHWeWGKmJcsyVrkNw2FugM",
     "USDT_ERC20": "0x38FE5Bc8ACe89FC0670ba357E90B74dBC1EC1A47",
