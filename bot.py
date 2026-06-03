@@ -493,12 +493,13 @@ async def admin_action(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         )
 
 def main():
+    import asyncio
     app = Application.builder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(admin_action, pattern="^(paid|reject)_"))
     app.add_handler(CallbackQueryHandler(button_handler))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, text_handler))
-    app.run_polling()
+    app.run_polling(close_loop=False)
 
 if __name__ == "__main__":
     main()
