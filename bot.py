@@ -1,4 +1,4 @@
-import sqlite3, logging
+import sqlite3, logging, asyncio
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (Application, CommandHandler, MessageHandler,
                            CallbackQueryHandler, filters, ContextTypes)
@@ -90,10 +90,7 @@ async def button_handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         ]
         await q.message.reply_photo(
             photo=IMG_SELL,
-            caption="💰 SELL CRYPTO\n\n"
-                    "Fast, Safe and Secure\n\n"
-                    "Enter the amount in USD 💵\n\n"
-                    "Type your amount below 👇",
+            caption="💰 SELL CRYPTO\n\nFast, Safe and Secure\n\nEnter the amount in USD 💵\n\nType your amount below 👇",
             reply_markup=InlineKeyboardMarkup(kb)
         )
         await q.message.delete()
@@ -103,10 +100,10 @@ async def button_handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         await q.edit_message_caption(
             caption="📊 Conversion Rates\n\n"
                     "━━━━━━━━━━━━━━━\n"
-                    "💠 $10 - $580       =  Rs.98 per dollar\n"
-                    "💠 $581 - $2300     =  Rs.99 per dollar\n"
-                    "💠 $2301 - $5700    =  Rs.99 per dollar\n"
-                    "💠 $5701 and above  =  Rs.100 per dollar\n"
+                    "$10 - $580      = Rs.98 per dollar\n"
+                    "$581 - $2300    = Rs.99 per dollar\n"
+                    "$2301 - $5700   = Rs.99 per dollar\n"
+                    "$5701 and above = Rs.100 per dollar\n"
                     "━━━━━━━━━━━━━━━\n\n"
                     "Rates are updated regularly",
             reply_markup=InlineKeyboardMarkup(kb)
@@ -123,9 +120,7 @@ async def button_handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
             [InlineKeyboardButton("🔧 Support", callback_data="support")],
         ]
         await q.edit_message_text(
-            "💱 VK Exchange Bot\n\n"
-            "Your trusted platform to sell crypto and receive INR instantly!\n\n"
-            "Choose an option below 👇",
+            "💱 VK Exchange Bot\n\nYour trusted platform to sell crypto and receive INR instantly!\n\nChoose an option below 👇",
             reply_markup=InlineKeyboardMarkup(kb)
         )
 
@@ -143,9 +138,7 @@ async def button_handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
             ]
             await q.message.reply_photo(
                 photo=IMG_USDT,
-                caption="🌐 SELECT NETWORK\n\n"
-                        "Choose your USDT network carefully\n\n"
-                        "⚠️ Sending on wrong network will result in loss of funds!",
+                caption="🌐 SELECT NETWORK\n\nChoose your USDT network carefully\n\n⚠️ Sending on wrong network will result in loss of funds!",
                 reply_markup=InlineKeyboardMarkup(kb)
             )
             await q.message.delete()
@@ -165,10 +158,7 @@ async def button_handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         kb = [[InlineKeyboardButton("🔙 Back", callback_data="sell")]]
         await q.message.reply_photo(
             photo=IMG_UPI,
-            caption="📱 UPI PAYMENT\n\n"
-                    "Enter your UPI ID below\n\n"
-                    "Example: name@upi or 9999999999@paytm\n\n"
-                    "Type your UPI ID 👇",
+            caption="📱 UPI PAYMENT\n\nEnter your UPI ID below\n\nExample: name@upi or 9999999999@paytm\n\nType your UPI ID 👇",
             reply_markup=InlineKeyboardMarkup(kb)
         )
         await q.message.delete()
@@ -179,9 +169,7 @@ async def button_handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         kb = [[InlineKeyboardButton("🔙 Back", callback_data="sell")]]
         await q.message.reply_photo(
             photo=IMG_UPI,
-            caption="🏦 BANK TRANSFER IMPS\n\n"
-                    "Enter your Bank Account Number below\n\n"
-                    "Type your Account Number 👇",
+            caption="🏦 BANK TRANSFER IMPS\n\nEnter your Bank Account Number below\n\nType your Account Number 👇",
             reply_markup=InlineKeyboardMarkup(kb)
         )
         await q.message.delete()
@@ -193,11 +181,7 @@ async def button_handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
             (uid,)
         ).fetchall()
         if not rows:
-            await q.edit_message_text(
-                "📋 My Orders\n\n"
-                "You have no orders yet.\n\n"
-                "Type /start to go back."
-            )
+            await q.edit_message_text("📋 My Orders\n\nYou have no orders yet.\n\nType /start to go back.")
         else:
             text = "📋 My Orders\n\n━━━━━━━━━━━━━━━\n"
             for r in rows:
@@ -207,49 +191,28 @@ async def button_handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
             await q.edit_message_text(text)
 
     elif data == "support":
-        await q.edit_message_text(
-            "🔧 Support\n\n"
-            "Having issues? We are here to help!\n\n"
-            "📞 Contact: @ContactHandle\n\n"
-            "Type /start to go back."
-        )
+        await q.edit_message_text("🔧 Support\n\nHaving issues? We are here to help!\n\n📞 Contact: @YourSupportHandle\n\nType /start to go back.")
 
     elif data == "dispute":
-        await q.edit_message_text(
-            "⚠️ Raise a Dispute\n\n"
-            "If you have an issue with your order contact us with your Order ID\n\n"
-            "📞 Contact: @ContactHandle\n\n"
-            "Type /start to go back."
-        )
+        await q.edit_message_text("⚠️ Raise a Dispute\n\nContact us with your Order ID\n\n📞 Contact: @YourSupportHandle\n\nType /start to go back.")
 
     elif data == "referral":
-        await q.edit_message_text(
-            "👥 Referral Program\n\n"
-            "Coming Soon!\n\n"
-            "Stay tuned for exciting rewards 🎁\n\n"
-            "Type /start to go back."
-        )
+        await q.edit_message_text("👥 Referral Program\n\nComing Soon!\n\nType /start to go back.")
 
     elif data == "stats":
         total = conn.execute("SELECT COUNT(*) FROM orders").fetchone()[0]
         paid = conn.execute("SELECT COUNT(*) FROM orders WHERE status='paid'").fetchone()[0]
         pending = conn.execute("SELECT COUNT(*) FROM orders WHERE status='pending'").fetchone()[0]
         await q.edit_message_text(
-            "📊 Stats\n\n"
-            "━━━━━━━━━━━━━━━\n"
-            f"📦 Total Orders:  {total}\n"
-            f"✅ Completed:     {paid}\n"
-            f"⏳ Pending:       {pending}\n"
-            "━━━━━━━━━━━━━━━\n\n"
-            "Type /start to go back."
+            f"📊 Stats\n\n━━━━━━━━━━━━━━━\n"
+            f"📦 Total Orders: {total}\n"
+            f"✅ Completed: {paid}\n"
+            f"⏳ Pending: {pending}\n"
+            f"━━━━━━━━━━━━━━━\n\nType /start to go back."
         )
 
     elif data == "payment":
-        await q.edit_message_text(
-            "🏦 Saved Payment Details\n\n"
-            "Coming Soon!\n\n"
-            "Type /start to go back."
-        )
+        await q.edit_message_text("🏦 Saved Payment Details\n\nComing Soon!\n\nType /start to go back.")
 
 async def show_wallet_photo(q, ctx, key, image):
     wallet = WALLETS.get(key)
@@ -257,7 +220,6 @@ async def show_wallet_photo(q, ctx, key, image):
     inr = get_inr(amount)
     ctx.user_data["network"] = key
     ctx.user_data["step"] = "awaiting_hash"
-
     caption = (
         f"👛 WALLET ADDRESS\n\n"
         f"━━━━━━━━━━━━━━━\n"
@@ -271,11 +233,7 @@ async def show_wallet_photo(q, ctx, key, image):
         f"After payment paste your Transaction Hash here 👇"
     )
     kb = [[InlineKeyboardButton("🔙 Back", callback_data="sell")]]
-    await q.message.reply_photo(
-        photo=image,
-        caption=caption,
-        reply_markup=InlineKeyboardMarkup(kb)
-    )
+    await q.message.reply_photo(photo=image, caption=caption, reply_markup=InlineKeyboardMarkup(kb))
     await q.message.delete()
 
 async def text_handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
@@ -286,10 +244,7 @@ async def text_handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         try:
             amount = float(text)
             if amount < 10:
-                await update.message.reply_text(
-                    "❌ Minimum amount is $10\n\n"
-                    "Please enter a higher amount."
-                )
+                await update.message.reply_text("❌ Minimum amount is $10\n\nPlease enter a higher amount.")
                 return
             ctx.user_data["amount_usd"] = amount
             ctx.user_data["step"] = "crypto"
@@ -303,29 +258,16 @@ async def text_handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
             ]
             await update.message.reply_photo(
                 photo=IMG_AMOUNT,
-                caption=f"💵 AMOUNT\n\n"
-                        f"━━━━━━━━━━━━━━━\n"
-                        f"💲 Amount:  ${amount}\n"
-                        f"📈 Rate:    Rs.{rate} per dollar\n"
-                        f"💰 You Get: Rs.{inr}\n"
-                        f"━━━━━━━━━━━━━━━\n\n"
-                        f"Select your Crypto 👇",
+                caption=f"💵 AMOUNT\n\n━━━━━━━━━━━━━━━\n💲 Amount: ${amount}\n📈 Rate: Rs.{rate} per dollar\n💰 You Get: Rs.{inr}\n━━━━━━━━━━━━━━━\n\nSelect your Crypto 👇",
                 reply_markup=InlineKeyboardMarkup(kb)
             )
         except ValueError:
-            await update.message.reply_text(
-                "❌ Invalid Amount!\n\n"
-                "Please enter a valid number like 100 or 500"
-            )
+            await update.message.reply_text("❌ Invalid Amount!\n\nPlease enter a valid number like 100 or 500")
 
     elif step == "awaiting_hash":
         network = ctx.user_data.get("network", "")
         if not validate_tx_hash(text, network):
-            await update.message.reply_text(
-                "❌ Invalid Transaction Hash!\n\n"
-                "The hash you entered does not look correct.\n\n"
-                "Please check your wallet transaction history and paste the correct hash 👇"
-            )
+            await update.message.reply_text("❌ Invalid Transaction Hash!\n\nPlease check your wallet transaction history and paste the correct hash 👇")
             return
         ctx.user_data["tx_hash"] = text
         ctx.user_data["step"] = "awaiting_payment_method"
@@ -335,66 +277,36 @@ async def text_handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         ]
         await update.message.reply_photo(
             photo=IMG_TXHASH,
-            caption="✅ TX HASH VERIFIED!\n\n"
-                    "Your transaction hash looks valid\n\n"
-                    "💳 How would you like to receive INR?\n\n"
-                    "Choose your payment method below 👇",
+            caption="✅ TX HASH VERIFIED!\n\nYour transaction hash looks valid\n\n💳 How would you like to receive INR?\n\nChoose your payment method below 👇",
             reply_markup=InlineKeyboardMarkup(kb)
         )
 
     elif step == "awaiting_upi":
         if not validate_upi(text):
-            await update.message.reply_text(
-                "❌ Invalid UPI ID!\n\n"
-                "UPI ID must be in format: name@upi\n\n"
-                "Examples:\n"
-                "✅ 9999999999@paytm\n"
-                "✅ yourname@upi\n"
-                "✅ yourname@okaxis\n\n"
-                "Please enter a valid UPI ID 👇"
-            )
+            await update.message.reply_text("❌ Invalid UPI ID!\n\nFormat: name@upi\n\nExamples:\n✅ 9999999999@paytm\n✅ yourname@okaxis\n\nPlease enter a valid UPI ID 👇")
             return
         ctx.user_data["payment_details"] = text
         await save_order(update, ctx)
 
     elif step == "awaiting_account":
         if not text.isdigit() or len(text) < 9 or len(text) > 18:
-            await update.message.reply_text(
-                "❌ Invalid Account Number!\n\n"
-                "Account number must be 9 to 18 digits only\n\n"
-                "Please enter a valid account number 👇"
-            )
+            await update.message.reply_text("❌ Invalid Account Number!\n\nMust be 9 to 18 digits only\n\nPlease enter a valid account number 👇")
             return
         ctx.user_data["account_number"] = text
         ctx.user_data["step"] = "awaiting_ifsc"
-        await update.message.reply_text(
-            "✅ Account Number Saved!\n\n"
-            "🏦 Now enter your IFSC Code 👇\n\n"
-            "Example: SBIN0001234"
-        )
+        await update.message.reply_text("✅ Account Number Saved!\n\n🏦 Now enter your IFSC Code 👇\n\nExample: SBIN0001234")
 
     elif step == "awaiting_ifsc":
         if len(text) != 11 or not text[:4].isalpha():
-            await update.message.reply_text(
-                "❌ Invalid IFSC Code!\n\n"
-                "IFSC must be 11 characters\n\n"
-                "Example: SBIN0001234\n\n"
-                "Please enter a valid IFSC Code 👇"
-            )
+            await update.message.reply_text("❌ Invalid IFSC Code!\n\nMust be 11 characters\n\nExample: SBIN0001234\n\nPlease enter valid IFSC 👇")
             return
         ctx.user_data["ifsc"] = text.upper()
         ctx.user_data["step"] = "awaiting_holder"
-        await update.message.reply_text(
-            "✅ IFSC Code Saved!\n\n"
-            "🏦 Now enter Account Holder Name 👇"
-        )
+        await update.message.reply_text("✅ IFSC Code Saved!\n\n🏦 Now enter Account Holder Name 👇")
 
     elif step == "awaiting_holder":
         if len(text) < 3:
-            await update.message.reply_text(
-                "❌ Invalid Name!\n\n"
-                "Please enter your full name 👇"
-            )
+            await update.message.reply_text("❌ Invalid Name!\n\nPlease enter your full name 👇")
             return
         ctx.user_data["payment_details"] = (
             f"Account: {ctx.user_data.get('account_number')} | "
@@ -431,20 +343,17 @@ async def save_order(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         InlineKeyboardButton("✅ Mark Paid", callback_data=f"paid_{order_id}_{user.id}"),
         InlineKeyboardButton("❌ Reject", callback_data=f"reject_{order_id}_{user.id}")
     ]]
-    await ctx.bot.send_message(
-        ADMIN_CHAT_ID, admin_text,
-        reply_markup=InlineKeyboardMarkup(kb)
-    )
+    await ctx.bot.send_message(ADMIN_CHAT_ID, admin_text, reply_markup=InlineKeyboardMarkup(kb))
 
     await update.message.reply_text(
         f"🧾 ORDER RECEIPT\n\n"
         f"━━━━━━━━━━━━━━━\n"
-        f"📦 Order ID:  #{order_id}\n"
-        f"🪙 Crypto:    {ud.get('network')}\n"
-        f"💵 Amount:    ${ud.get('amount_usd')}\n"
-        f"💰 INR:       Rs.{inr}\n"
-        f"💳 Payment:   {ud.get('payment_method')}\n"
-        f"⏳ Status:    Pending\n"
+        f"📦 Order ID: #{order_id}\n"
+        f"🪙 Crypto: {ud.get('network')}\n"
+        f"💵 Amount: ${ud.get('amount_usd')}\n"
+        f"💰 INR: Rs.{inr}\n"
+        f"💳 Payment: {ud.get('payment_method')}\n"
+        f"⏳ Status: Pending\n"
         f"━━━━━━━━━━━━━━━\n\n"
         f"✅ Order Submitted Successfully!\n"
         f"We will verify and send Rs.{inr} within 30 minutes\n\n"
@@ -466,8 +375,7 @@ async def admin_action(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     if action == "paid":
         conn.execute("UPDATE orders SET status='paid' WHERE id=?", (order_id,))
         conn.commit()
-        await ctx.bot.send_message(
-            user_id,
+        await ctx.bot.send_message(user_id,
             f"🎉 Order #{order_id} Complete!\n\n"
             f"━━━━━━━━━━━━━━━\n"
             f"✅ INR has been sent to your account!\n"
@@ -475,31 +383,28 @@ async def admin_action(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
             f"Thank you for using VK Exchange Bot!\n"
             f"Come back anytime to sell more crypto 💰"
         )
-        await q.edit_message_text(
-            q.message.text + "\n\n✅ PAID - INR Sent"
-        )
+        await q.edit_message_text(q.message.text + "\n\n✅ PAID - INR Sent")
 
     elif action == "reject":
         conn.execute("UPDATE orders SET status='rejected' WHERE id=?", (order_id,))
         conn.commit()
-        await ctx.bot.send_message(
-            user_id,
+        await ctx.bot.send_message(user_id,
             f"❌ Order #{order_id} Rejected\n\n"
             f"Your order could not be processed.\n\n"
             f"Please contact support: @YourSupportHandle"
         )
-        await q.edit_message_text(
-            q.message.text + "\n\n❌ REJECTED"
-        )
+        await q.edit_message_text(q.message.text + "\n\n❌ REJECTED")
 
-def main():
-    import asyncio
+async def main():
     app = Application.builder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(admin_action, pattern="^(paid|reject)_"))
     app.add_handler(CallbackQueryHandler(button_handler))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, text_handler))
-    app.run_polling(close_loop=False)
+    await app.initialize()
+    await app.start()
+    await app.updater.start_polling()
+    await asyncio.Event().wait()
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
